@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <title>Dice</title>
+        <meta charset="utf-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="dice_forms.js"></script>
+        <link rel="stylesheet" type="text/css" href="dice_style.css">
+    </head>
+   <body>
+    <div class="select-players">
+      <div>ДЖУНГЛИ ЗОВУТ</div>
+      <label> Выберите количество игроков:</label>
+      <select>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option>10</option>
+      </select><br>
+      <button class="start-btn">Начать игру</button>
+    </div>
+      
+    <div class="playerTable" style="display:flex; flex-direction: row; justify-content: center;"></div>
+    <div class="pathField"></div>
+    <div class="finish_board"></div>
+   	<script>
+   		$(document).ready(function(){
+        //creating players
+        var ammountPlayers=3;
+        $(".start-btn").click(function(){
+          // var curNum=
+          ammountPlayers=Number($("select option:selected").text());
+          $(".select-players").fadeOut("slow");
+          $(".start").outerWidth(ammountPlayers*45);
+        for (var i=1; i<ammountPlayers+1; i++){
+          makePlayer(i, ".playerTable");
+          $("#player"+i).css("background-color", colors[i-1]);
+          if (i==1) {
+            $("#player"+i).addClass("activePlayer");
+          }
+          makeRound(i,".pathField", ammountPlayers);
+          positions[i-1]=0;
+        }
+        $(".dice").hide();
+
+        });
+        
+        //creating empty rounds
+        var coordLen=coords.length;
+        for(var i=0;i<coordLen;i++){
+          var emptyCircle=$("<div></div>");
+          if (i==0) {
+            emptyCircle.addClass("start");
+            emptyCircle.html("СТАРТ");
+          }
+          else if(i==(coordLen-1)){
+            emptyCircle.addClass("finish");
+            emptyCircle.html("ФИНИШ");
+          }
+          else{
+            emptyCircle.addClass("circle");
+            emptyCircle.html(i);
+          } 
+          emptyCircle.css({"left": coords[i][0]+"px", "top":coords[i][1]+"px"});
+          $(".pathField").append(emptyCircle);
+        }
+        
+
+        //click on button: dice and go
+        $(".playerTable").on("click", ".btn", function(){//dice
+        var playerNumber=$(this).attr("id");
+        $("#player"+playerNumber+" .dice").hide();
+        var dice_number=Math.floor(Math.random()*6)+1;
+        var chosen="#player"+playerNumber+" .dice"+dice_number;
+        $(chosen).show();
+          //go
+        var newPos=positions[playerNumber-1]+dice_number;
+        if (newPos<coords.length-1 && finishFlag==false) {//move
+          // $("#round"+playerNumber).css({"left": coords[newPos][0]+1, "top":coords[newPos][1]+1});
+          positions[playerNumber-1]=newPos;
+          //checking dublication of players' position
+          var dub=0;
+         
+          for (var i=0;i<positions.length;i++){
+            if (positions[i]==newPos) dub++;
+
+          }
+          var leftDiff=1;
+          var topDiff=1;
+         switch(dub) {
+            case 2:  
+            var secPlayer=0;
+               for (var i=0;i<positions.length;i++){
+                  if(i!=(playerNumber-1) && positions[i]==positions[playerNumber-1]){
+                     secPlayer=Number(i+1);
+                     break;
+                  }
+                } 
+                if($("#round"+secPlayer).css("left")!= (coords[positions[playerNumber-1]][0]+8+"px")) leftDiff=8;
+              break;
+            case 3:  
+              leftDiff=-7;
+            case 4:  
+              topDiff=8;
+              break;
+            case 5: 
+              topDiff=-7;
+              break;
+            default:
+              break;
+          }
+          $("#round"+playerNumber).css({"left": coords[newPos][0]+leftDiff+"px", "top":coords[newPos][1]+topDiff+"px"});
+          //move the active selection
+          $(".common").removeClass("activePlayer");
+          var nextPlayer=Number(playerNumber)+1;
+          if(nextPlayer==ammountPlayers+1){
+            nextPlayer=1;
+          }
+          $("#player"+nextPlayer).addClass("activePlayer");
+        }
+        else if(finishFlag==false){//finish and winner
+          newPos=coordLen-1;
+          finishFlag=true;
+          $("#round"+playerNumber).css({"left": coords[newPos][0]+40, "top":coords[newPos][1]+1});
+          positions[playerNumber-1]=coordLen-2;
+
+          $(".finish_board").html("ИГРА ЗАВЕРШЕНА! <br><br>КОРОЛЬ ДЖУНГЛЕЙ:<br><br><em>ИГРОК "+playerNumber+"</em><div></div>");
+          $(".finish_board div").addClass("reload_btn");
+          $(".finish_board div").attr("title","Начать игру заново");
+          $("em").css({"color": colors[playerNumber-1], "text-shadow":"1px 1px 0 black"});
+          $(".finish_board").css("opacity","1");
+        }
+        });
+
+       $(".finish_board").on("click", ".reload_btn", function(){
+        location.reload();
+        
+        
+      });
+   		});
+   		
+   	</script>
+   </body>
+   </html>

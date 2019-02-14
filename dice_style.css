@@ -1,0 +1,199 @@
+body{
+	background-image: url('jungle.jpg');
+	background-size: cover;
+}
+.select-players{
+	position:absolute;
+	border:1px solid red;
+	width:600px;
+	height: 130px;
+	border-radius: 30px;
+	background-color: white;
+	top:30px;
+	left:33%;
+	padding-top:20px;
+	text-align: center;
+	font-family:  NeSkid;
+	font-size: 35px;
+	color:#FF4500;
+	z-index:5;
+	background-color: rgb(167, 255, 166,0.8);
+
+}
+label{
+	font-size:25px;
+	color:gray;
+}
+select{
+	padding:5px;
+	border-radius: 15%;
+	background-color: #F0E68C;
+	font-family:  NeSkid;
+	font-size: 15px;
+	position: relative;
+	top:-3px;
+}
+.start-btn{
+	padding:5px;
+	border-radius: 5%;
+	background-color: #F0E68C;
+	font-family:  NeSkid;
+	font-size: 15px;
+}
+.dice{
+	border:1px solid black;
+	width:40px;
+	height:40px;
+	border-radius: 5px;
+	padding: 0;
+	margin:10px;
+	display: flex;
+	opacity: 1;
+	background-color: white;
+}
+.dice1{
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.dice2, .dice3{
+		justify-content: space-around;
+}
+.dice_bottom{
+	align-self: flex-end;
+}
+.dice_top{
+	align-self: flex-start;
+}
+.dice_center{
+	align-self: center;
+}
+.dice4, .dice6{
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+}
+.dice5{
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+.dice-col{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.round{
+	position: absolute;
+	width:1px;
+	height:1px;
+	border-radius: 50%;
+	border:20px solid red;
+	z-index:3;
+}
+.circle{
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	border:2px solid darkgray;
+	position:absolute;
+	text-align: center;
+	vertical-align: middle;
+	font-family: NeSkid;
+	font-size:20px;
+	background-color: #F0E68C;
+	 z-index: 1;
+	
+}
+.start{
+	min-width:135px;
+	height: 45px;
+	border-radius: 7px;
+	border:2px solid black;
+	position:absolute;
+	text-align: center;
+	vertical-align: middle;
+	font-family: NeSkid;
+	font-size:40px;
+	color:black;
+	background-color:  #F0E68C;
+}
+.finish{
+	height: 40px;
+	width:100px;
+	border-radius: 15px;
+	border:2px solid black;
+	position:absolute;
+	text-align: center;
+	vertical-align: middle;
+	font-family: NeSkid;
+	font-size:30px;
+	color:black;
+	background-color:  #F0E68C;
+}
+.finish_board{
+	position: absolute;
+	width:600px;
+	height: 250px;
+	border: 2px solid darkgreen;
+	border-radius: 30px;
+	top:35%;
+	left:34%;
+	z-index:4;
+	background-color: rgb(167, 255, 166,0.8);
+	background-image: url('monkey.png');
+	background-repeat: no-repeat;
+	background-position: right center;
+	background-size: contain;
+	padding-top:40px;
+	padding-left: 50px;
+	font-family:  NeSkid;
+	font-size: 35px;
+	color:#FF4500;
+	opacity:0;
+}
+.playerTable{
+	min-height: 175px;
+}
+.common{
+	min-height: 160px;
+	width: 150px;
+	position: relative;
+	margin:5px;
+	border:2px solid gray;
+}
+button{
+	padding: 10px;
+	margin:10px;
+}
+.playerName{
+	margin-left:20px;
+	margin-top: 10px;
+	font-weight: bold;
+}
+.pathField{
+	width:1900px;
+	min-height:700px;
+	position: relative;
+	
+}
+.activePlayer{
+	border: 2px solid white;
+	box-shadow: 0 1px 5px 5px gray;
+}
+.reload_btn{
+	width:40px;
+	min-height: 45px;
+	background-image: url('restart.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	position: absolute;
+	bottom: 30px;
+	right: 50px;
+	
+}
+   @font-face {
+    font-family: NeSkid; /* Гарнитура шрифта */
+    src: url(fonts/NeSkid.ttf); /* Путь к файлу со шрифтом */
+   }
