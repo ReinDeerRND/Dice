@@ -1,4 +1,2 @@
 # Dice
-The game jungle dice
-<br>
-http://d90174ay.beget.tech/Dice/dice.html
+<a  href="http://d90174ay.beget.tech/Dice/dice.html">The game jungle dice</a>
